@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>STORTHUB - Урок 6: Конструктор алгоритмов</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/slick.css" />
+    <link rel="stylesheet" href="css/jquery.fancybox.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header_inner">
+          <a href="index.html" class="logo">STORT<span>HUB</span></a>
+          <div class="exit">
+            <p class="nameuser">Мисайлов Райф</p>
+            <a href="#" class="iconexit">🚪</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="container">
+        <div class="content_inner">
+          <div class="menu">
+            <div class="class-switch">
+              <button class="switch-btn active" data-href="index.html">
+                5 класс
+              </button>
+              <button class="switch-btn" data-href="2lesson.html">
+                6 класс
+              </button>
+            </div>
+            <ul class="lesson-list">
+              <li data-href="lesson0.html">Введение</li>
+              <li data-href="index.html">
+                Урок 1. Базовые правила безопасности в кабинете информатики
+              </li>
+              <li data-href="lesson2.html">Урок 2. Эргономика</li>
+              <li data-href="lesson3.html">
+                Урок 3. Кибер-гигиена и защита личных данных
+              </li>
+              <li data-href="lesson4.html">
+                Урок 4. Как работают компьютеры: Аппаратное обеспечение
+              </li>
+              <li data-href="lesson5.html">
+                Урок 5. Как работают компьютеры: Программное обеспечение
+              </li>
+              <li data-href="lesson6.html" class="active">Урок 6. Алгоритмы</li>
+            </ul>
+          </div>
+
+          <div class="content_games">
+            <div class="algorithm-builder">
+              <h2>🧩 Конструктор алгоритмов</h2>
+              <p>
+                Создай алгоритм "Как приготовить чай", перетаскивая шаги в
+                правильном порядке!
+              </p>
+
+              <div class="algorithm-workspace">
+                <div class="steps-bank">
+                  <h3>📦 Доступные шаги:</h3>
+                  <div class="draggable-steps">
+                    <div class="step-card" draggable="true" data-step="1">
+                      <span class="step-icon">💧</span>
+                      <span class="step-text">Налить воду в чайник</span>
+                    </div>
+                    <div class="step-card" draggable="true" data-step="2">
+                      <span class="step-icon">🔥</span>
+                      <span class="step-text">Включить чайник</span>
+                    </div>
+                    <div class="step-card" draggable="true" data-step="3">
+                      <span class="step-icon">☕</span>
+                      <span class="step-text"
+                        >Положить чайный пакетик в чашку</span
+                      >
+                    </div>
+                    <div class="step-card" draggable="true" data-step="4">
+                      <span class="step-icon">⏰</span>
+                      <span class="step-text">Дождаться закипания воды</span>
+                    </div>
+                    <div class="step-card" draggable="true" data-step="5">
+                      <span class="step-icon">🌊</span>
+                      <span class="step-text">Залить кипятком чашку</span>
+                    </div>
+                    <div class="step-card" draggable="true" data-step="6">
+                      <span class="step-icon">⌛</span>
+                      <span class="step-text">Настоять чай 3-5 минут</span>
+                    </div>
+                    <div class="step-card" draggable="true" data-step="7">
+                      <span class="step-icon">🗑️</span>
+                      <span class="step-text">Убрать чайный пакетик</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="algorithm-sequence">
+                  <h3>📋 Твой алгоритм:</h3>
+                  <div class="drop-zone" id="algorithmZone">
+                    <div class="empty-message">
+                      Перетащи сюда шаги алгоритма в правильном порядке
+                    </div>
+                  </div>
+                  <div class="algorithm-controls">
+                    <button id="checkAlgorithm" class="check-btn" disabled>
+                      Проверить алгоритм
+                    </button>
+                    <button id="clearAlgorithm" class="clear-btn">
+                      Очистить
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="algorithm-result"
+                id="algorithmResult"
+                style="display: none"
+              >
+                <div class="result-content">
+                  <h3 id="resultTitle">Результат</h3>
+                  <p id="resultMessage">Сообщение</p>
+                  <div id="resultDetails"></div>
+                </div>
+              </div>
+            </div>
+
+            <img
+              src="images/arrow.png"
+              alt="Далее"
+              class="arrow"
+              id="next-arrow"
+              style="display: none"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for tooltips -->
+    <div id="tooltipOverlay" class="tooltip-overlay"></div>
+    <div id="tooltipModal" class="tooltip-modal"></div>
+
+    <style>
+      .algorithm-builder {
+        padding: 30px;
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        border-radius: 20px;
+        margin: 20px;
+      }
+
+      .algorithm-builder h2 {
+        color: #4d36db;
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 28px;
+      }
+
+      .algorithm-builder > p {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 16px;
+      }
+
+      .algorithm-workspace {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 30px;
+      }
+
+      .steps-bank,
+      .algorithm-sequence {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .steps-bank h3,
+      .algorithm-sequence h3 {
+        color: #4d36db;
+        margin-bottom: 15px;
+        font-size: 18px;
+      }
+
+      .draggable-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .step-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        cursor: grab;
+        transition: all 0.3s ease;
+        user-select: none;
+      }
+
+      .step-card:hover {
+        border-color: #4d36db;
+        background: #e8f0fe;
+        transform: translateY(-2px);
+      }
+
+      .step-card:active {
+        cursor: grabbing;
+      }
+
+      .step-card.dragging {
+        opacity: 0.5;
+        transform: rotate(5deg);
+      }
+
+      .step-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      .step-text {
+        font-weight: 500;
+        color: #333;
+      }
+
+      .drop-zone {
+        min-height: 300px;
+        border: 2px dashed #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        position: relative;
+      }
+
+      .drop-zone.drag-over {
+        border-color: #4d36db;
+        background: #e8f0fe;
+      }
+
+      .empty-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #999;
+        text-align: center;
+        font-style: italic;
+      }
+
+      .drop-zone .step-card {
+        margin-bottom: 8px;
+        position: relative;
+      }
+
+      .drop-zone .step-card::before {
+        content: attr(data-position);
+        position: absolute;
+        left: -25px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #4d36db;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .algorithm-controls {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .check-btn,
+      .clear-btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .check-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+      }
+
+      .check-btn:disabled {
+        background: #e9ecef;
+        color: #6c757d;
+        cursor: not-allowed;
+      }
+
+      .check-btn:not(:disabled):hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+      }
+
+      .clear-btn {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #dee2e6;
+      }
+
+      .clear-btn:hover {
+        background: #e9ecef;
+      }
+
+      .algorithm-result {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .algorithm-result.success {
+        background: linear-gradient(135deg, #d4edda, #c3e6cb);
+        border: 2px solid #28a745;
+      }
+
+      .algorithm-result.error {
+        background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+        border: 2px solid #dc3545;
+      }
+
+      .result-content h3 {
+        margin-bottom: 10px;
+        font-size: 20px;
+      }
+
+      .result-content p {
+        margin-bottom: 15px;
+        font-size: 16px;
+      }
+
+      #resultDetails {
+        text-align: left;
+        background: rgba(255, 255, 255, 0.7);
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+      }
+
+      @media (max-width: 768px) {
+        .algorithm-workspace {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .algorithm-builder {
+          padding: 20px;
+          margin: 10px;
+        }
+
+        .step-card {
+          padding: 10px;
+          gap: 8px;
+        }
+
+        .step-icon {
+          font-size: 18px;
+        }
+
+        .step-text {
+          font-size: 14px;
+        }
+      }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/help.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const correctOrder = [1, 3, 2, 4, 5, 6, 7]; // Правильная последовательность шагов
+        let algorithmSteps = [];
+
+        // Инициализация drag & drop
+        initializeDragAndDrop();
+
+        function initializeDragAndDrop() {
+          const stepCards = document.querySelectorAll('.step-card');
+          const dropZone = document.getElementById('algorithmZone');
+
+          stepCards.forEach(card => {
+            card.addEventListener('dragstart', handleDragStart);
+            card.addEventListener('dragend', handleDragEnd);
+          });
+
+          dropZone.addEventListener('dragover', handleDragOver);
+          dropZone.addEventListener('drop', handleDrop);
+          dropZone.addEventListener('dragenter', handleDragEnter);
+          dropZone.addEventListener('dragleave', handleDragLeave);
+        }
+
+        function handleDragStart(e) {
+          this.classList.add('dragging');
+          e.dataTransfer.setData('text/plain', this.dataset.step);
+          e.dataTransfer.setData('text/html', this.outerHTML);
+        }
+
+        function handleDragEnd(e) {
+          this.classList.remove('dragging');
+        }
+
+        function handleDragOver(e) {
+          e.preventDefault();
+        }
+
+        function handleDragEnter(e) {
+          e.preventDefault();
+          this.classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+          if (!this.contains(e.relatedTarget)) {
+            this.classList.remove('drag-over');
+          }
+        }
+
+        function handleDrop(e) {
+          e.preventDefault();
+          this.classList.remove('drag-over');
+
+          const stepId = e.dataTransfer.getData('text/plain');
+          const stepHtml = e.dataTransfer.getData('text/html');
+
+          if (stepId) {
+            addStepToAlgorithm(stepId, stepHtml);
+            hideOriginalStep(stepId);
+          }
+        }
+
+        function addStepToAlgorithm(stepId, stepHtml) {
+          const dropZone = document.getElementById('algorithmZone');
+          const emptyMessage = dropZone.querySelector('.empty-message');
+
+          if (emptyMessage) {
+            emptyMessage.style.display = 'none';
+          }
+
+          // Создаем новый элемент
+          const stepElement = document.createElement('div');
+          stepElement.innerHTML = stepHtml;
+          const newCard = stepElement.firstElementChild;
+
+          // Добавляем номер позиции
+          algorithmSteps.push(parseInt(stepId));
+          newCard.setAttribute('data-position', algorithmSteps.length);
+
+          // Добавляем кнопку удаления
+          const removeBtn = document.createElement('button');
+          removeBtn.innerHTML = '❌';
+          removeBtn.className = 'remove-step-btn';
+          removeBtn.style.cssText = `
+          position: absolute;
+          top: -5px;
+          right: -5px;
+          background: #dc3545;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          font-size: 12px;
+          cursor: pointer;
+        `;
+
+          removeBtn.addEventListener('click', () =>
+            removeStepFromAlgorithm(newCard, stepId)
+          );
+          newCard.appendChild(removeBtn);
+
+          // Убираем drag функциональность
+          newCard.draggable = false;
+          newCard.style.cursor = 'default';
+
+          dropZone.appendChild(newCard);
+          updateCheckButton();
+        }
+
+        function removeStepFromAlgorithm(stepElement, stepId) {
+          const index = algorithmSteps.indexOf(parseInt(stepId));
+          if (index > -1) {
+            algorithmSteps.splice(index, 1);
+          }
+
+          stepElement.remove();
+          showOriginalStep(stepId);
+          updatePositions();
+          updateCheckButton();
+
+          const dropZone = document.getElementById('algorithmZone');
+          if (algorithmSteps.length === 0) {
+            dropZone.querySelector('.empty-message').style.display = 'block';
+          }
+        }
+
+        function hideOriginalStep(stepId) {
+          const originalStep = document.querySelector(
+            `.draggable-steps .step-card[data-step="${stepId}"]`
+          );
+          if (originalStep) {
+            originalStep.style.display = 'none';
+          }
+        }
+
+        function showOriginalStep(stepId) {
+          const originalStep = document.querySelector(
+            `.draggable-steps .step-card[data-step="${stepId}"]`
+          );
+          if (originalStep) {
+            originalStep.style.display = 'flex';
+          }
+        }
+
+        function updatePositions() {
+          const dropZone = document.getElementById('algorithmZone');
+          const steps = dropZone.querySelectorAll('.step-card');
+          steps.forEach((step, index) => {
+            step.setAttribute('data-position', index + 1);
+          });
+        }
+
+        function updateCheckButton() {
+          const checkBtn = document.getElementById('checkAlgorithm');
+          checkBtn.disabled = algorithmSteps.length === 0;
+        }
+
+        // Проверка алгоритма
+        document
+          .getElementById('checkAlgorithm')
+          .addEventListener('click', checkAlgorithm);
+
+        function checkAlgorithm() {
+          const resultDiv = document.getElementById('algorithmResult');
+          const isCorrect =
+            JSON.stringify(algorithmSteps) === JSON.stringify(correctOrder);
+
+          if (isCorrect) {
+            showResult(
+              true,
+              '🎉 Отлично!',
+              'Ты правильно составил алгоритм приготовления чая!'
+            );
+            document.getElementById('next-arrow').style.display = 'block';
+          } else {
+            showResult(
+              false,
+              '❌ Не совсем верно',
+              'Попробуй изменить порядок шагов. Подумай о логической последовательности действий.'
+            );
+          }
+
+          resultDiv.style.display = 'block';
+        }
+
+        function showResult(isSuccess, title, message) {
+          const resultDiv = document.getElementById('algorithmResult');
+          const resultTitle = document.getElementById('resultTitle');
+          const resultMessage = document.getElementById('resultMessage');
+          const resultDetails = document.getElementById('resultDetails');
+
+          resultDiv.className = `algorithm-result ${
+            isSuccess ? 'success' : 'error'
+          }`;
+          resultTitle.textContent = title;
+          resultMessage.textContent = message;
+
+          if (!isSuccess) {
+            resultDetails.innerHTML = `
+            <h4>Правильная последовательность:</h4>
+            <ol>
+              <li>💧 Налить воду в чайник</li>
+              <li>☕ Положить чайный пакетик в чашку</li>
+              <li>🔥 Включить чайник</li>
+              <li>⏰ Дождаться закипания воды</li>
+              <li>🌊 Залить кипятком чашку</li>
+              <li>⌛ Настоять чай 3-5 минут</li>
+              <li>🗑️ Убрать чайный пакетик</li>
+            </ol>
+          `;
+          } else {
+            resultDetails.innerHTML =
+              '<p>Теперь ты понимаешь, как важен правильный порядок шагов в алгоритме!</p>';
+          }
+        }
+
+        // Очистка алгоритма
+        document
+          .getElementById('clearAlgorithm')
+          .addEventListener('click', clearAlgorithm);
+
+        function clearAlgorithm() {
+          const dropZone = document.getElementById('algorithmZone');
+          const stepCards = dropZone.querySelectorAll('.step-card');
+
+          stepCards.forEach(card => {
+            const stepId = card.dataset.step;
+            showOriginalStep(stepId);
+            card.remove();
+          });
+
+          algorithmSteps = [];
+          dropZone.querySelector('.empty-message').style.display = 'block';
+          document.getElementById('algorithmResult').style.display = 'none';
+          updateCheckButton();
+        }
+      });
+    </script>
+  </body>
+</html>

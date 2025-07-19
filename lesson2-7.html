@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>STORTHUB - Урок 2: Эргономика</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/slick.css" />
+    <link rel="stylesheet" href="css/jquery.fancybox.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header_inner">
+          <a href="index.html" class="logo">STORT<span>HUB</span></a>
+          <div class="exit">
+            <p class="nameuser">Мисайлов Райф</p>
+            <a href="#" class="iconexit">🚪</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="container">
+        <div class="content_inner">
+          <div class="menu">
+            <div class="class-switch">
+              <button class="switch-btn active" data-href="index.html">
+                5 класс
+              </button>
+              <button class="switch-btn" data-href="2lesson.html">
+                6 класс
+              </button>
+            </div>
+            <ul class="lesson-list">
+              <li data-href="lesson0.html">Введение</li>
+              <li data-href="index.html">
+                Урок 1. Базовые правила безопасности в кабинете информатики
+              </li>
+              <li data-href="lesson2.html" class="active">
+                Урок 2. Эргономика
+              </li>
+              <li data-href="lesson3.html">
+                Урок 3. Кибер-гигиена и защита личных данных
+              </li>
+              <li data-href="lesson4.html">
+                Урок 4. Как работают компьютеры: Аппаратное обеспечение
+              </li>
+              <li data-href="lesson5.html">
+                Урок 5. Как работают компьютеры: Программное обеспечение
+              </li>
+              <li data-href="lesson6.html">Урок 6. Алгоритмы</li>
+            </ul>
+          </div>
+
+          <div class="content_games" id="center">
+            <div class="ergonomics-question">
+              <div class="question-content">
+                <img
+                  src="images/Video2_7.png"
+                  alt="Вопрос о сне"
+                  class="question-image"
+                />
+                <div class="question-info">
+                  <h3>
+                    Сколько часов сна нужно школьнику для хорошего самочувствия?
+                  </h3>
+                  <div class="answer-options">
+                    <div
+                      class="test-option"
+                      data-correct="false"
+                      data-feedback="Слишком мало! Недостаток сна влияет на концентрацию и здоровье."
+                    >
+                      5 часов
+                    </div>
+                    <div
+                      class="test-option"
+                      data-correct="true"
+                      data-feedback="Правильно! 8-9 часов сна необходимо для восстановления и роста организма."
+                    >
+                      8-9 часов
+                    </div>
+                    <div
+                      class="test-option"
+                      data-correct="false"
+                      data-feedback="Слишком много! Хотя сон важен, избыток сна может вызвать вялость."
+                    >
+                      12 часов
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <img
+                src="images/arrow.png"
+                alt="Далее"
+                class="arrow"
+                id="next-arrow"
+                style="display: none"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for feedback -->
+    <div id="feedbackModal" class="feedback-modal">
+      <div class="feedback-content">
+        <h3 id="feedbackTitle">Результат</h3>
+        <p id="feedbackText">Текст обратной связи</p>
+        <button id="closeFeedback" class="close-feedback-btn">Понятно</button>
+      </div>
+    </div>
+
+    <div id="feedbackOverlay" class="feedback-overlay"></div>
+
+    <!-- Modal for tooltips -->
+    <div id="tooltipOverlay" class="tooltip-overlay"></div>
+    <div id="tooltipModal" class="tooltip-modal"></div>
+
+    <!-- Используем те же стили что и в lesson2-6 -->
+    <style>
+      .ergonomics-question {
+        padding: 30px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .question-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .question-image {
+        max-width: 400px;
+        max-height: 300px;
+        object-fit: contain;
+        border-radius: 15px;
+      }
+
+      .question-info {
+        max-width: 400px;
+      }
+
+      .question-info h3 {
+        color: #4d36db;
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 25px;
+        text-align: center;
+      }
+
+      .answer-options {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .test-option {
+        padding: 15px 25px;
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        border: 2px solid #4d36db;
+        border-radius: 12px;
+        cursor: pointer;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.3s ease;
+        color: #333;
+        font-size: 16px;
+      }
+
+      .test-option:hover {
+        background: linear-gradient(135deg, #e9ecef, #dee2e6);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(77, 54, 219, 0.3);
+      }
+
+      .test-option.selected {
+        pointer-events: none;
+      }
+
+      .test-option.correct {
+        background: linear-gradient(135deg, #d4edda, #c3e6cb);
+        border-color: #28a745;
+        color: #155724;
+        animation: correctPulse 0.6s ease-in-out;
+      }
+
+      .test-option.incorrect {
+        background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+        border-color: #dc3545;
+        color: #721c24;
+        animation: incorrectShake 0.6s ease-in-out;
+      }
+
+      @keyframes correctPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes incorrectShake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        75% {
+          transform: translateX(5px);
+        }
+      }
+
+      .feedback-modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        z-index: 1001;
+        max-width: 450px;
+        width: 90%;
+        display: none;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      }
+
+      .feedback-modal.active {
+        display: block;
+        animation: modalAppear 0.3s ease-out;
+      }
+
+      @keyframes modalAppear {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      .feedback-content h3 {
+        color: #4d36db;
+        margin-bottom: 15px;
+        font-size: 22px;
+        text-align: center;
+      }
+
+      .feedback-content p {
+        margin-bottom: 25px;
+        font-size: 16px;
+        line-height: 1.6;
+        text-align: center;
+        color: #555;
+      }
+
+      .close-feedback-btn {
+        display: block;
+        margin: 0 auto;
+        padding: 12px 35px;
+        background: linear-gradient(135deg, #4d36db, #6b46c1);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+
+      .close-feedback-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(77, 54, 219, 0.4);
+      }
+
+      .feedback-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1000;
+        display: none;
+      }
+
+      .feedback-overlay.active {
+        display: block;
+      }
+
+      @media (max-width: 768px) {
+        .question-content {
+          flex-direction: column;
+          gap: 25px;
+          padding: 25px;
+        }
+
+        .question-image {
+          max-width: 100%;
+          max-height: 200px;
+        }
+
+        .question-info {
+          max-width: 100%;
+        }
+
+        .question-info h3 {
+          font-size: 18px;
+        }
+
+        .test-option {
+          padding: 12px 20px;
+          font-size: 14px;
+        }
+      }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/help.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        let answered = false;
+
+        document.querySelectorAll('.test-option').forEach(option => {
+          option.addEventListener('click', function () {
+            if (answered) return;
+
+            const isCorrect = this.dataset.correct === 'true';
+            const feedback = this.dataset.feedback;
+
+            // Отключаем все варианты
+            document.querySelectorAll('.test-option').forEach(opt => {
+              opt.classList.add('selected');
+            });
+
+            // Подсвечиваем выбранный ответ
+            if (isCorrect) {
+              this.classList.add('correct');
+            } else {
+              this.classList.add('incorrect');
+              // Подсвечиваем правильный ответ
+              document.querySelectorAll('.test-option').forEach(opt => {
+                if (opt.dataset.correct === 'true') {
+                  opt.classList.add('correct');
+                }
+              });
+            }
+
+            // Показываем обратную связь
+            setTimeout(() => {
+              showFeedback(
+                isCorrect ? '🎉 Правильно!' : '❌ Неправильно!',
+                feedback
+              );
+              answered = true;
+            }, 1200);
+          });
+        });
+
+        function showFeedback(title, text) {
+          document.getElementById('feedbackTitle').textContent = title;
+          document.getElementById('feedbackText').textContent = text;
+          document.getElementById('feedbackModal').classList.add('active');
+          document.getElementById('feedbackOverlay').classList.add('active');
+        }
+
+        function closeFeedback() {
+          document.getElementById('feedbackModal').classList.remove('active');
+          document.getElementById('feedbackOverlay').classList.remove('active');
+
+          // Показываем стрелку для перехода дальше
+          document.getElementById('next-arrow').style.display = 'block';
+        }
+
+        document
+          .getElementById('closeFeedback')
+          .addEventListener('click', closeFeedback);
+        document
+          .getElementById('feedbackOverlay')
+          .addEventListener('click', closeFeedback);
+      });
+    </script>
+  </body>
+</html>

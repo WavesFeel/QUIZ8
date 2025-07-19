@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>STORTHUB - Урок 1: Тест</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/slick.css" />
+    <link rel="stylesheet" href="css/jquery.fancybox.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header_inner">
+          <a href="index.html" class="logo">STORT<span>HUB</span></a>
+          <div class="exit">
+            <p class="nameuser">Мисайлов Райф</p>
+            <a href="#" class="iconexit">🚪</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="container">
+        <div class="content_inner">
+          <div class="menu">
+            <div class="class-switch">
+              <button class="switch-btn active" data-href="index.html">
+                5 класс
+              </button>
+              <button class="switch-btn" data-href="2lesson.html">
+                6 класс
+              </button>
+            </div>
+            <ul class="lesson-list">
+              <li data-href="lesson0.html">Введение</li>
+              <li data-href="index.html" class="active">
+                Урок 1. Базовые правила безопасности в кабинете информатики
+              </li>
+              <li data-href="lesson2.html">Урок 2. Эргономика</li>
+              <li data-href="lesson3.html">
+                Урок 3. Кибер-гигиена и защита личных данных
+              </li>
+              <li data-href="lesson4.html">
+                Урок 4. Как работают компьютеры: Аппаратное обеспечение
+              </li>
+              <li data-href="lesson5.html">
+                Урок 5. Как работают компьютеры: Программное обеспечение
+              </li>
+              <li data-href="lesson6.html">Урок 6. Алгоритмы</li>
+            </ul>
+          </div>
+
+          <div class="content_games">
+            <div class="test-section">
+              <button id="startTestBtn" class="start-test-btn">
+                Начать тест
+              </button>
+
+              <div id="testBlock" class="test-block" style="display: none">
+                <form id="testForm">
+                  <h3>
+                    1. Как часто нужно делать перерывы, когда работаешь за
+                    компьютером?
+                  </h3>
+                  <label
+                    ><input type="radio" name="q1" value="25" /> Каждые 25
+                    минут</label
+                  ><br />
+                  <label
+                    ><input type="radio" name="q1" value="50" /> Каждые 50
+                    минут</label
+                  ><br />
+                  <label
+                    ><input type="radio" name="q1" value="5" /> Каждые 5
+                    минут</label
+                  ><br /><br />
+
+                  <h3>2. Можно ли есть и пить возле клавиатуры?</h3>
+                  <label
+                    ><input type="radio" name="q2" value="no" /> Нет,
+                    нельзя</label
+                  ><br />
+                  <label
+                    ><input type="radio" name="q2" value="yes" /> Да,
+                    можно</label
+                  ><br /><br />
+
+                  <h3>
+                    3. Почему нельзя дотрагиваться до включенного компьютера
+                    мокрыми руками?
+                  </h3>
+                  <label
+                    ><input type="radio" name="q3" value="shock" /> Можно
+                    получить удар током</label
+                  ><br />
+                  <label
+                    ><input type="radio" name="q3" value="safe" /> Ничего не
+                    будет</label
+                  ><br />
+                  <label
+                    ><input type="radio" name="q3" value="idk" /> Я не
+                    знаю</label
+                  ><br /><br />
+
+                  <button type="submit" class="submit-test-btn">
+                    Завершить тест
+                  </button>
+                </form>
+
+                <div id="testResult" class="test-result" style="display: none">
+                  <h3>🎉 Отлично! Ты прошёл тест!</h3>
+                  <p>
+                    Теперь ты знаешь основные правила безопасности в кабинете
+                    информатики.
+                  </p>
+                  <button id="nextLessonBtn" class="next-lesson-btn">
+                    Перейти к следующему уроку
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for tooltips -->
+    <div id="tooltipOverlay" class="tooltip-overlay"></div>
+    <div id="tooltipModal" class="tooltip-modal"></div>
+
+    <style>
+      .test-section {
+        padding: 40px;
+        text-align: center;
+        background: white;
+        border-radius: 15px;
+        margin: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .start-test-btn {
+        padding: 20px 40px;
+        background: linear-gradient(135deg, #4d36db, #6b46c1);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Montserrat', sans-serif;
+        box-shadow: 0 4px 15px rgba(77, 54, 219, 0.3);
+      }
+
+      .start-test-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(77, 54, 219, 0.4);
+      }
+
+      .test-block {
+        background: #f8f9fa;
+        padding: 30px;
+        border-radius: 15px;
+        margin-top: 20px;
+        text-align: left;
+      }
+
+      .test-block h3 {
+        color: #4d36db;
+        margin-bottom: 15px;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .test-block label {
+        display: block;
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        font-weight: 500;
+      }
+
+      .test-block label:hover {
+        background-color: #e9ecef;
+      }
+
+      .test-block input[type='radio'] {
+        margin-right: 10px;
+        transform: scale(1.2);
+      }
+
+      .submit-test-btn {
+        padding: 15px 30px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Montserrat', sans-serif;
+        margin-top: 20px;
+      }
+
+      .submit-test-btn:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+      }
+
+      .test-result {
+        background: linear-gradient(135deg, #d4edda, #c3e6cb);
+        color: #155724;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        border: 2px solid #28a745;
+        margin-top: 20px;
+      }
+
+      .test-result h3 {
+        color: #155724;
+        margin-bottom: 15px;
+        font-size: 22px;
+      }
+
+      .test-result p {
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+
+      .next-lesson-btn {
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #4d36db, #6b46c1);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Montserrat', sans-serif;
+      }
+
+      .next-lesson-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(77, 54, 219, 0.3);
+      }
+
+      @media (max-width: 768px) {
+        .test-section {
+          padding: 20px;
+          margin: 10px;
+        }
+
+        .test-block {
+          padding: 20px;
+        }
+
+        .start-test-btn {
+          padding: 15px 30px;
+          font-size: 16px;
+        }
+
+        .test-block h3 {
+          font-size: 16px;
+        }
+      }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/help.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        let testPassed = false;
+
+        const testForm = document.getElementById('testForm');
+        const testResult = document.getElementById('testResult');
+        const startTestBtn = document.getElementById('startTestBtn');
+        const testBlock = document.getElementById('testBlock');
+
+        // Показываем тест при клике
+        if (startTestBtn && testBlock) {
+          startTestBtn.addEventListener('click', () => {
+            startTestBtn.style.display = 'none';
+            testBlock.style.display = 'block';
+            testBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
+
+        // Проверка теста
+        if (testForm && testResult) {
+          testForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const answers = {
+              q1: '25',
+              q2: 'no',
+              q3: 'shock',
+            };
+
+            let correct = 0;
+            let total = Object.keys(answers).length;
+
+            for (let q in answers) {
+              const selected = testForm.querySelector(
+                `input[name="${q}"]:checked`
+              );
+              if (selected && selected.value === answers[q]) {
+                correct++;
+              }
+            }
+
+            if (correct === total) {
+              testPassed = true;
+              testForm.style.display = 'none';
+              testResult.style.display = 'block';
+              testResult.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+              });
+            } else {
+              alert(
+                `Ты ответил правильно на ${correct} из ${total} вопросов. Попробуй ещё раз!`
+              );
+            }
+          });
+        }
+
+        // Переход к следующему уроку
+        const nextLessonBtn = document.getElementById('nextLessonBtn');
+        if (nextLessonBtn) {
+          nextLessonBtn.addEventListener('click', () => {
+            if (!testPassed) {
+              alert('Сначала пройди тест!');
+              return;
+            }
+
+            // Переходим к уроку 2
+            window.location.href = 'lesson2.html';
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>STORTHUB - Урок 4: Изучение компонентов</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/slick.css" />
+    <link rel="stylesheet" href="css/jquery.fancybox.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header_inner">
+          <a href="index.html" class="logo">STORT<span>HUB</span></a>
+          <div class="exit">
+            <p class="nameuser">Мисайлов Райф</p>
+            <a href="#" class="iconexit">🚪</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="container">
+        <div class="content_inner">
+          <div class="menu">
+            <div class="class-switch">
+              <button class="switch-btn active" data-href="index.html">
+                5 класс
+              </button>
+              <button class="switch-btn" data-href="2lesson.html">
+                6 класс
+              </button>
+            </div>
+            <ul class="lesson-list">
+              <li data-href="lesson0.html">Введение</li>
+              <li data-href="index.html">
+                Урок 1. Базовые правила безопасности в кабинете информатики
+              </li>
+              <li data-href="lesson2.html">Урок 2. Эргономика</li>
+              <li data-href="lesson3.html">
+                Урок 3. Кибер-гигиена и защита личных данных
+              </li>
+              <li data-href="lesson4.html" class="active">
+                Урок 4. Как работают компьютеры: Аппаратное обеспечение
+              </li>
+              <li data-href="lesson5.html">
+                Урок 5. Как работают компьютеры: Программное обеспечение
+              </li>
+              <li data-href="lesson6.html">Урок 6. Алгоритмы</li>
+            </ul>
+          </div>
+
+          <div class="content_games">
+            <!-- Основное изображение компьютера -->
+            <div class="computer-setup">
+              <img
+                src="images/Video4_2.png"
+                alt="Компьютер"
+                class="computer-main-image"
+              />
+
+              <!-- Интерактивные слайдеры для каждого компонента -->
+              <div class="components-overlay">
+                <!-- Процессор -->
+                <div class="slider-block" id="slider1">
+                  <button class="prev">◀</button>
+                  <span class="component">Процессор</span>
+                  <button class="next">▶</button>
+                  <span class="tooltip-btn" data-id="slider1">❓</span>
+                </div>
+
+                <!-- Оперативная память -->
+                <div class="slider-block" id="slider2">
+                  <button class="prev">◀</button>
+                  <span class="component">RAM</span>
+                  <button class="next">▶</button>
+                  <span class="tooltip-btn" data-id="slider2">❓</span>
+                </div>
+
+                <!-- Видеокарта -->
+                <div class="slider-block" id="slider3">
+                  <button class="prev">◀</button>
+                  <span class="component">Видеокарта</span>
+                  <button class="next">▶</button>
+                  <span class="tooltip-btn" data-id="slider3">❓</span>
+                </div>
+
+                <!-- Блок питания -->
+                <div class="slider-block" id="slider4">
+                  <button class="prev">◀</button>
+                  <span class="component">Блок питания</span>
+                  <button class="next">▶</button>
+                  <span class="tooltip-btn" data-id="slider4">❓</span>
+                </div>
+
+                <!-- Материнская плата -->
+                <div class="slider-block" id="slider5">
+                  <button class="prev">◀</button>
+                  <span class="component">Материнка</span>
+                  <button class="next">▶</button>
+                  <span class="tooltip-btn" data-id="slider5">❓</span>
+                </div>
+
+                <!-- Корпус -->
+                <div class="slider-block" id="slider6">
+                  <button class="prev">◀</button>
+                  <span class="component">Корпус</span>
+                  <button class="next">▶</button>
+                  <span class="tooltip-btn" data-id="slider6">❓</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Прогресс изучения -->
+            <div class="study-progress">
+              <h3>🔧 Изучение компонентов</h3>
+              <p>Кликай на стрелки, чтобы изучить разные компоненты!</p>
+              <div class="progress-indicator">
+                <span id="explored-count">0</span>/6 компонентов изучено
+              </div>
+            </div>
+
+            <!-- Стрелка появляется после изучения всех компонентов -->
+            <img
+              src="images/arrow.png"
+              alt="Далее"
+              class="arrow"
+              id="next-arrow"
+              style="display: none"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for tooltips -->
+    <div id="tooltipOverlay" class="tooltip-overlay"></div>
+    <div id="tooltipModal" class="tooltip-modal"></div>
+
+    <style>
+      .computer-setup {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 500px;
+        margin: 20px 0;
+      }
+
+      .computer-main-image {
+        max-width: 80%;
+        max-height: 100%;
+        object-fit: contain;
+        z-index: 1;
+      }
+
+      .components-overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: auto;
+        height: 100%;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 12px;
+        padding-right: 10px;
+        pointer-events: none; /* чтобы сквозь оверлей кликать */
+      }
+
+      .slider-block {
+        position: relative;
+        width: 200px;
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid #4d36db;
+        border-radius: 12px;
+        padding: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(77, 54, 219, 0.3);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        pointer-events: all;
+        backdrop-filter: blur(5px);
+      }
+
+      .slider-block:hover {
+        background: #f0f4ff;
+        border-color: #7f7fff;
+        transform: scale(1.03);
+      }
+
+      .slider-block.explored {
+        background: rgba(212, 237, 218, 0.95);
+        border-color: #28a745;
+      }
+
+      .slider-block.explored:hover {
+        background: rgba(212, 237, 218, 1);
+      }
+
+      .slider-block button {
+        background-color: #7f7fff;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        font-size: 11px;
+        transition: 0.2s ease;
+      }
+
+      .slider-block button:hover {
+        background-color: #5a5ad1;
+      }
+
+      .component {
+        min-width: 80px;
+        text-align: center;
+        font-weight: 700;
+        color: #333;
+        font-size: 11px;
+      }
+
+      .tooltip-btn {
+        font-size: 16px;
+        color: #4d36db;
+        transition: transform 0.2s ease;
+      }
+
+      .tooltip-btn:hover {
+        transform: scale(1.2);
+      }
+
+      .study-progress {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 3;
+        padding: 15px;
+        background: rgba(77, 54, 219, 0.95);
+        color: #fff;
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        max-width: 250px;
+      }
+
+      .study-progress h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+      }
+
+      .study-progress p {
+        font-size: 12px;
+        opacity: 0.9;
+        margin-bottom: 10px;
+      }
+
+      .progress-indicator {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 5px 10px;
+        font-weight: 600;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+
+      /* Адаптивность */
+      @media (max-width: 768px) {
+        .computer-setup {
+          height: 350px;
+        }
+
+        .slider-block {
+          width: 150px;
+          font-size: 10px;
+        }
+
+        .component {
+          font-size: 9px;
+          min-width: 60px;
+        }
+
+        .slider-block button {
+          width: 20px;
+          height: 20px;
+          font-size: 10px;
+        }
+
+        .tooltip-btn {
+          font-size: 14px;
+        }
+
+        .study-progress {
+          position: relative;
+          margin: 10px;
+          width: auto;
+        }
+
+        /* Обновление координат для маленьких экранов */
+        #slider1 {
+          top: 20%;
+          left: 5%;
+        }
+        #slider2 {
+          top: 15%;
+          right: 5%;
+        }
+        #slider3 {
+          top: 45%;
+          left: 10%;
+        }
+        #slider4 {
+          bottom: 15%;
+          right: 10%;
+        }
+        #slider5 {
+          bottom: 35%;
+          left: 5%;
+        }
+        #slider6 {
+          top: 10%;
+          right: 35%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .slider-block {
+          width: 120px;
+          gap: 4px;
+        }
+
+        .component {
+          font-size: 8px;
+          min-width: 50px;
+        }
+
+        .slider-block button {
+          width: 18px;
+          height: 18px;
+          font-size: 9px;
+        }
+
+        .computer-setup {
+          height: 300px;
+        }
+      }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/help.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        let exploredComponents = new Set();
+        const totalComponents = 6;
+
+        // Конфигурация слайдеров с компонентами (короткие названия)
+        const sliders = {
+          slider1: [' CPU', 'Процессор', 'i5/i7'],
+          slider2: ['RAM', 'ОЗУ', '8-16GB'],
+          slider3: ['Видеокарта', 'GPU', 'GeForce'],
+          slider4: ['БП', 'PSU', '600W'],
+          slider5: ['Материнка', 'МП', 'Socket'],
+          slider6: ['Корпус', 'Case', 'ATX'],
+        };
+
+        // Создаем функциональность для каждого слайдера
+        Object.entries(sliders).forEach(([id, options]) => {
+          createSlider(id, options);
+        });
+
+        function createSlider(id, options) {
+          const container = document.getElementById(id);
+          if (!container) return;
+
+          let index = 0;
+          const label = container.querySelector('.component');
+
+          // Устанавливаем начальное значение
+
+          // Проверка: если выбран правильный (первый) элемент в списке
+
+          container.querySelector('.prev').onclick = e => {
+            e.stopPropagation();
+            index = (index - 1 + options.length) % options.length;
+            label.textContent = options[index];
+            if (index === 0) {
+              markAsExplored(id);
+            }
+          };
+
+          container.querySelector('.next').onclick = e => {
+            e.stopPropagation();
+            index = (index + 1) % options.length;
+            label.textContent = options[index];
+            if (index === 0) {
+              markAsExplored(id);
+            }
+          };
+
+          // Обработчик для подсказки
+          const tooltipBtn = container.querySelector('.tooltip-btn');
+          tooltipBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            showTooltip(id);
+          });
+        }
+
+        function markAsExplored(sliderId) {
+          if (!exploredComponents.has(sliderId)) {
+            exploredComponents.add(sliderId);
+            document.getElementById(sliderId).classList.add('explored');
+            updateProgress();
+          }
+        }
+
+        function updateProgress() {
+          document.getElementById('explored-count').textContent =
+            exploredComponents.size;
+
+          if (exploredComponents.size === totalComponents) {
+            document.getElementById('next-arrow').style.display = 'block';
+            setTimeout(() => {
+              alert('🎉 Отлично! Ты изучил все компоненты компьютера!');
+            }, 500);
+          }
+        }
+
+        function showTooltip(sliderId) {
+          const tooltips = {
+            slider1:
+              'Процессор — это мозг компьютера, который выполняет все вычисления и обрабатывает команды.',
+            slider2:
+              'Оперативная память хранит данные, которые нужны процессору прямо сейчас. Чем больше RAM, тем быстрее работает компьютер.',
+            slider3:
+              'Видеокарта отвечает за обработку графики и вывод изображения на экран. Особенно важна для игр и видео.',
+            slider4:
+              'Блок питания преобразует электричество из розетки в нужное напряжение для всех компонентов компьютера.',
+            slider5:
+              'Материнская плата соединяет все компоненты компьютера между собой и обеспечивает их взаимодействие.',
+            slider6:
+              'Корпус защищает все внутренние компоненты от повреждений и обеспечивает правильное охлаждение.',
+          };
+
+          const text = tooltips[sliderId] || 'Описание недоступно.';
+          const modal = document.getElementById('tooltipModal');
+          const overlay = document.getElementById('tooltipOverlay');
+
+          if (modal && overlay) {
+            modal.innerText = text;
+            modal.classList.add('active');
+            overlay.classList.add('active');
+          }
+        }
+
+        // Закрытие подсказки
+        document
+          .getElementById('tooltipOverlay')
+          .addEventListener('click', () => {
+            document.getElementById('tooltipModal').classList.remove('active');
+            document
+              .getElementById('tooltipOverlay')
+              .classList.remove('active');
+          });
+      });
+    </script>
+  </body>
+</html>
